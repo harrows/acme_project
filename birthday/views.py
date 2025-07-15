@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from .forms import BirthdayForm
 from .models import Birthday
 from .utils import calculate_birthday_countdown
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 class BirthdayListView(ListView):
     model = Birthday
