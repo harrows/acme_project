@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from .validators import real_age
 from .models import Birthday 
 from django.core.mail import send_mail
+from .models import Birthday, Congratulation
 
 BEATLES = ['John Lennon', 'Paul McCartney', 'George Harrison', 'Ringo Starr']
 
@@ -12,7 +13,7 @@ BEATLES = ['John Lennon', 'Paul McCartney', 'George Harrison', 'Ringo Starr']
 class BirthdayForm(forms.ModelForm):
     class Meta:
         model = Birthday
-        fields = ['first_name', 'last_name', 'birthday']
+        exclude = ('author',)
     
     first_name = forms.CharField(label='Имя', max_length=20)
     last_name = forms.CharField(
@@ -43,3 +44,10 @@ class BirthdayForm(forms.ModelForm):
             raise ValidationError(
                 'Мы тоже любим Битлз, но введите, пожалуйста, настоящее имя!'
             ) 
+        
+
+class CongratulationForm(forms.ModelForm):
+    
+    class Meta:
+        model = Congratulation
+        fields = ('text',) 

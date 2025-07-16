@@ -8,6 +8,7 @@ from django.urls import include, path, reverse_lazy
 
 
 
+
 urlpatterns = [
     path('', include('pages.urls')),
     path('admin/', admin.site.urls),
@@ -21,3 +22,10 @@ urlpatterns = [
             success_url=reverse_lazy('pages:homepage'),
         ), name='registration'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# Подключаем дебаг-панель:
+if settings.DEBUG:
+    import debug_toolbar
+    # Добавить к списку urlpatterns список адресов из приложения debug_toolbar:
+    urlpatterns = [path('__debug__/', include(debug_toolbar.urls))] + urlpatterns
